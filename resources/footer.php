@@ -26,6 +26,7 @@
         No quiz views yet. We should add some PHP here eventually to display that info.
       </div>
       <script>
+        // Script that lets you select footer buttons and reveal a drop-down info tab
         $(document).ready(function() {
           $("#aboutText").hide(0);
           $("#contactText").hide(0);
