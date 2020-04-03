@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <?php include("resources/header.php"); ?>
+  <?php
+    // TEMPORARY naming convention; replace with SQL query to get quiz name
+    $titleTag = isset($_GET['name']) ? htmlspecialchars($_GET['name']) . " - " : "";
+    include("resources/header.php");
+  ?>
   <div style="padding: 8em">
     Content belongs here!
   </div>

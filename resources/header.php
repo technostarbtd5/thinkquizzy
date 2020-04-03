@@ -16,19 +16,10 @@
 <body>
   <div id=main>
     <div id="headerBar">
-
+      <a href="index.php" id="logo" class="left">
+        ThinkQuizzy
+      </a>
     </div>
-
-
-    <script>
-      $(document).ready(function () {
-        $("#headerBar").html(
-          `<a href="index.php" id="logo" class="left">
-            ThinkQuizzy
-          </a>`
-        );
-      });
-    </script>
     <div id="menuBar">
     </div>
     <div class="moreBar" id="moreBar" hidden>
@@ -38,12 +29,13 @@
       // Menu bar creation script.
 
       const primaryKeywords = ["New", "People", "Places", "Pandemic"];
+
+      // Variables to allow client to parse "GET" params
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
+
+      // Just a simple link to the homepage
       const homepageLink = "index.php";
-      //console.log(window.location.pathname);
-      //console.log(window.location.search);
-      //console.log(urlParams.has("sort"));
 
       // First, make sure "Hot" links to just the homepage.
       let innerHTML = `<a class="menuButton ${urlParams.has('sort') || window.location.pathname.substr(-1 * homepageLink.length) != homepageLink ? '' : 'menuButtonActive'}" id="hot_button" href="index.php">
@@ -69,19 +61,23 @@
 
       // Replace with PHP SQL query to get top 25 categores
       const extraCategories = ["Pets", "Celebrities", "History", "Food", "Movies", "Books", "Music", "Math", "Science", "Language"];
+
+      // Add extra categories as cells in the "More Bar" grid.
       extraCategories.forEach((item, i) => {
         moreHTML += `<a class="moreBarOption" id="${item.toLowerCase()}_button" href="index.php?sort=${item.toLowerCase()}">
           ${item}
         </a>`
       });
 
-
+      // Update menu bar.
       $("#menuBar").html(
         innerHTML
       ).promise().done(function() {
+        // Update more bar to work properly with mouseover
         $("#more_button").mouseenter(function() {
           $("#moreBar").show(0);
         }).mouseleave(function() {
+          // Only hide if you didn't just move into the menu
           if($("#moreBar:hover").length == 0) {
             $("#moreBar").hide(0);
           }
@@ -90,6 +86,8 @@
           $("#moreBar").hide(0);
         }).html();
       });
+
+      // Update more bar html
       $("#moreBar").html(
         moreHTML
       ).hide(0);
