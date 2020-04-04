@@ -4,6 +4,168 @@
   if(!isset($titleTag)) {
     $titleTag = "";
   }
+
+  // Important database values.
+
+  $servernameDB = 'localhost';
+  $usernameDB = 'root';
+  $passwordDB = '';
+  $nameDB = 'ThinkQuizzyDB';
+
+  // Create or load SQL SQL Database
+
+  $conn = mysqli_connect($servernameDB, $usernameDB, $passwordDB);
+  if(!$conn) {
+    echo "Unable to establish SQL connection!";
+    die('Could not connect.');
+  }
+
+  // Make ThinkQuizzyDB the current Database
+  $db_selected = mysqli_select_db($conn, $nameDB);
+
+  $initDummyQuizzes = array();
+
+  // Create if the database doesn't exist
+  if(!$db_selected) {
+    $sql = "CREATE DATABASE $nameDB";
+    if(mysqli_query($conn, $sql)) {
+      echo "Database created successfully<br/>";
+
+      // Create some dummy quizzes, as the database should be empty right now.
+      $initDummyQuizzes[] = 'INSERT INTO quizzes (title, description, icon_small, icon_large, author) VALUES ("What ice cream flavor are you?", "Based on your personality traits, we\'ll match you with the ice cream flavor you are most similar to!", "icecream.png", "icecream_large.png", "Techno")';
+      $initDummyQuizzes[] = ' INSERT INTO quizzes (title, description, icon_small, icon_large, author) VALUES ("We\'ll pick your next vacation based on your facorite actors!", "We all need vacation inspiration, right?", "yosemite.png", "yosemite_large.png", "Techno")';
+      $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (1, 1)';
+      $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (2, 2)';
+      $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (2, 3)';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Food", "food", "Bite-size quizzes about your favorite dishes to please your taste buds")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Places", "places", "How well do you know your planet?")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("People", "people", "Stars aren\'t just in the sky.")';
+
+      /* Copy-pasteable form:
+      INSERT INTO quizzes (title, description, icon_small, icon_large, author)
+      VALUES ("What ice cream flavor are you?",
+      "Based on your personality traits, we'll match you with the ice cream flavor you are most similar to!",
+      "icecream.png", "icecream_large.png", "Techno");
+      INSERT INTO quizzes (title, description, icon_small, icon_large, author)
+      VALUES ("We'll pick your next vacation based on your facorite actors!",
+      "We all need vacation inspiration, right?",
+      "yosemite.png", "yosemite_large.png", "Techno");
+      INSERT INTO quiz_categories
+      VALUES (1, 1);
+      INSERT INTO quiz_categories
+      VALUES (2, 2);
+      INSERT INTO quiz_categories
+      VALUES (2, 3);
+      INSERT INTO categories (name, identifying_name, description)
+      VALUES ("Food", "food", "Bite-size quizzes about your favorite dishes to please your taste buds");
+      INSERT INTO categories (name, identifying_name, description)
+      VALUES ("Places", "places", "How well do you know your planet?");
+      INSERT INTO categories (name, identifying_name, description)
+      VALUES ("People", "people", "Stars aren't just in the sky.");
+      */
+
+
+    } else {
+      echo "Error creating database.";
+      die('Could not create db.');
+    }
+  } else {
+    //echo "Database already exists";
+  }
+
+  // Update connection to reflect ThinkQuizzy database.
+  $conn = mysqli_connect($servernameDB, $usernameDB, $passwordDB, $nameDB);
+
+  if($conn) {
+
+    // Create table for storing quizzes
+    $sql = "CREATE TABLE quizzes (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(400),
+      description VARCHAR(30000),
+      icon_small VARCHAR(2000),
+      icon_large VARCHAR(2000),
+      author VARCHAR(400),
+      views INT DEFAULT 0,
+      recent_views INT DEFAULT 0,
+      reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )";
+
+    /* Sample query:
+    INSERT INTO quizzes (title, description, icon_small, icon_large, author)
+    VALUES ("What ice cream flavor are you?",
+    "Based on your personality traits, we'll match you with the ice cream flavor you are most similar to!",
+    "icecream.png", "icecream_large.png", "Alden");
+    INSERT INTO quizzes (title, description, icon_small, icon_large, author)
+    VALUES ("We'll pick your next vacation based on your facorite actors!",
+    "We all need vacation inspiration, right?",
+    "yosemite.png", "yosemite_large.png", "Alden");
+    */
+
+    if (mysqli_query($conn, $sql)) {
+        //echo "Table MyGuests created successfully";
+    } else {
+        //echo "Error creating table: " . mysqli_error($conn);
+    }
+
+    // Create table for storing which quizzes have which categories
+    $sql = "CREATE TABLE quiz_categories (
+      quiz_id INT,
+      category_id INT
+    )";
+
+    if (mysqli_query($conn, $sql)) {
+        //echo "Table MyGuests created successfully";
+    } else {
+        //echo "Error creating table: " . mysqli_error($conn);
+    }
+
+    /* Sample query:
+    INSERT INTO quiz_categories
+    VALUES (1, 1);
+    INSERT INTO quiz_categories
+    VALUES (2, 2);
+    INSERT INTO quiz_categories
+    VALUES (2, 3);
+    */
+
+    // Create table for categories and their descriptions.
+    $sql = "CREATE TABLE categories (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(400),
+      identifying_name VARCHAR(400),
+      description VARCHAR(30000),
+      num_quizzes_with_category INT DEFAULT 0
+    )";
+
+    if (mysqli_query($conn, $sql)) {
+        //echo "Table MyGuests created successfully";
+    } else {
+        //echo "Error creating table: " . mysqli_error($conn);
+    }
+
+    /* Sample query:
+    INSERT INTO categories (name, identifying_name, description)
+    VALUES ("Food", "food", "Bite-size quizzes about your favorite dishes to please your taste buds");
+    INSERT INTO categories (name, identifying_name, description)
+    VALUES ("Places", "places", "How well do you know your planet?");
+    INSERT INTO categories (name, identifying_name, description)
+    VALUES ("People", "people", "Stars aren't just in the sky.");
+    */
+
+    if(count($initDummyQuizzes) > 0) {
+      foreach($initDummyQuizzes as $initDummyQuiz) {
+        if (mysqli_query($conn, $initDummyQuiz)) {
+            //echo "Added dummy quiz";
+        } else {
+            //echo "Failed to add dummy quiz<br />$initDummyQuiz";
+        }
+      }
+    }
+
+
+  }
+
 ?>
 
 <head>

@@ -18,7 +18,7 @@ a:focus {
   color: inherit;
 }
 #main {
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
   background-color: #f8f8f8;
   border: 1px;
@@ -149,4 +149,31 @@ a.menuButton {
 
 .moreBar > .moreBarOption:hover {
   background-color: #447733;
+}
+
+.quizItem {
+  display: grid;
+  grid-template-columns: 150px auto;
+  background: #eeeeee;
+  margin: 1.5em;
+}
+.quizItem > .quizItemImage {
+  display: table-cell;
+  overflow: auto;
+}
+.quizItemInfo {
+  padding: 1em;
+}
+.quizItem > .quizItemInfo {
+  padding: 1em;
+  display: table-cell;
+  overflow: auto;
+}
+.quizItemTitle {
+  font-size: 1.3em;
+  margin-bottom: 0.2em;
+}
+
+.red {
+  background: blue;
 }
