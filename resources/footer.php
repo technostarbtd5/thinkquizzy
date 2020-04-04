@@ -20,7 +20,7 @@
         Quiz site project for ITWS 1100 Group 8.
       </div>
       <div class="center footerText" id="contactText" hidden>
-        Ha, you thought we'd give away our emails here! You know who we are.
+        Ha, you really thought we'd give away our emails here? You know who we are.
       </div>
       <div class="center footerText" id="statsText" hidden>
         No quiz views yet. We should add some PHP here eventually to display that info.
