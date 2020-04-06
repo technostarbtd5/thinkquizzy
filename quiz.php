@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <?php 
+  <?php
     // TEMPORARY naming convention; replace with SQL query to get quiz name
     $titleTag = isset($_GET['name']) ? htmlspecialchars($_GET['name']) . " - " : "";
     include("resources/header.php");
@@ -9,9 +9,8 @@
     Content belongs here!
     </br>
     </br>
-    <div class="pageButton">
-      <a href="results.php">Submit</a>
-    </div>
+
+    <a class="pageButton" href="results.php">Submit</a>
   </div>
   <?php include("resources/footer.php"); ?>
 </html>
