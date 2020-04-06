@@ -151,6 +151,22 @@ a.menuButton {
   background-color: #447733;
 }
 
+.pageButton {
+  padding: 0.8em 1.6em;
+  /*box-sizing: border-box;
+  overflow: auto;*/
+  color: white;
+  display: inline-block;
+  background-color: #336622;
+}
+a.pageButton {
+  color: white;
+}
+
+.pageButton:hover {
+  background-color: #55883f;
+}
+
 .quizItem {
   display: grid;
   grid-template-columns: 150px auto;

@@ -7,6 +7,13 @@
   ?>
   <div style="padding: 8em">
     Content belongs here!
+    </br>
+    </br>
+
+    <a class="pageButton" href="quiz.php">&#129028; Return</a>
+
+    <a class="pageButton" href="index.php">&#129093; Home</a>
+
   </div>
   <?php include("resources/footer.php"); ?>
 </html>

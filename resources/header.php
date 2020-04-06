@@ -33,7 +33,7 @@
 
       // Create some dummy quizzes, as the database should be empty right now.
       $initDummyQuizzes[] = 'INSERT INTO quizzes (title, description, icon_small, icon_large, author) VALUES ("What ice cream flavor are you?", "Based on your personality traits, we\'ll match you with the ice cream flavor you are most similar to!", "icecream.png", "icecream_large.png", "Techno")';
-      $initDummyQuizzes[] = ' INSERT INTO quizzes (title, description, icon_small, icon_large, author) VALUES ("We\'ll pick your next vacation based on your facorite actors!", "We all need vacation inspiration, right?", "yosemite.png", "yosemite_large.png", "Techno")';
+      $initDummyQuizzes[] = ' INSERT INTO quizzes (title, description, icon_small, icon_large, author) VALUES ("We\'ll pick your next vacation based on your favorite actors!", "We all need vacation inspiration, right?", "yosemite.png", "yosemite_large.png", "Techno")';
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (1, 1)';
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (2, 2)';
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (2, 3)';
@@ -47,7 +47,7 @@
       "Based on your personality traits, we'll match you with the ice cream flavor you are most similar to!",
       "icecream.png", "icecream_large.png", "Techno");
       INSERT INTO quizzes (title, description, icon_small, icon_large, author)
-      VALUES ("We'll pick your next vacation based on your facorite actors!",
+      VALUES ("We'll pick your next vacation based on your favorite actors!",
       "We all need vacation inspiration, right?",
       "yosemite.png", "yosemite_large.png", "Techno");
       INSERT INTO quiz_categories
@@ -97,7 +97,7 @@
     "Based on your personality traits, we'll match you with the ice cream flavor you are most similar to!",
     "icecream.png", "icecream_large.png", "Alden");
     INSERT INTO quizzes (title, description, icon_small, icon_large, author)
-    VALUES ("We'll pick your next vacation based on your facorite actors!",
+    VALUES ("We'll pick your next vacation based on your favorite actors!",
     "We all need vacation inspiration, right?",
     "yosemite.png", "yosemite_large.png", "Alden");
     */
