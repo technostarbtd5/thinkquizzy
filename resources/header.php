@@ -144,6 +144,35 @@
         //echo "Error creating table: " . mysqli_error($conn);
     }
 
+    // Create tables for questions and answers
+    $sql = "CREATE TABLE questions (
+      questionid INT AUTO_INCREMENT PRIMARY KEY,
+      quizid INT,
+      questiontext VARCHAR(30000),
+      image VARCHAR(2000)
+      );";
+
+    if (mysqli_query($conn, $sql)) {
+        //echo "Table questions created successfully";
+    } else {
+        //echo "Error creating table: " . mysqli_error($conn);
+    }
+
+    $sql = "CREATE TABLE answers (
+      answerid INT AUTO_INCREMENT PRIMARY KEY,
+      questionid INT,
+      optionnumber INT,
+      answertext VARCHAR(30000),
+      weight VARCHAR(10000)
+    );";
+
+    if (mysqli_query($conn, $sql)) {
+        //echo "Table answers created successfully";
+    } else {
+        //echo "Error creating table: " . mysqli_error($conn);
+    }
+
+
     /* Sample query:
     INSERT INTO categories (name, identifying_name, description)
     VALUES ("Food", "food", "Bite-size quizzes about your favorite dishes to please your taste buds");
@@ -162,6 +191,8 @@
         }
       }
     }
+
+
 
 
   }
