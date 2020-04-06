@@ -7,6 +7,11 @@
   ?>
   <div style="padding: 8em">
     Content belongs here!
+    </br>
+    </br>
+    <div class="pageButton">
+      <a href="results.php">Submit</a>
+    </div>
   </div>
   <?php include("resources/footer.php"); ?>
 </html>

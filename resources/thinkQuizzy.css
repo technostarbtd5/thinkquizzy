@@ -151,6 +151,15 @@ a.menuButton {
   background-color: #447733;
 }
 
+.pageButton {
+  padding: 0.8em 1.6em;
+  /*box-sizing: border-box;
+  overflow: auto;*/
+  color: white;
+  display: inline-block;
+  background-color: #336622;
+}
+
 .quizItem {
   display: grid;
   grid-template-columns: 150px auto;
@@ -177,3 +186,4 @@ a.menuButton {
 .red {
   background: blue;
 }
+
