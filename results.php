@@ -12,8 +12,8 @@
       if(isset($_GET['id'])) {
         // Verify real quiz
         $sql = 'SELECT * FROM quizzes WHERE id=' . mysqli_real_escape_string($conn, $_GET['id']) . ' LIMIT 1;';
-        $result = mysqli_query($conn, $sql);
-        if($result && mysqli_num_rows($result) > 0) {
+        $resultquiz = mysqli_query($conn, $sql);
+        if($resultquiz && mysqli_num_rows($resultquiz) > 0) {
           //$titleTag = htmlspecialchars(mysqli_fetch_assoc($result)["name"]) . " - ";
 
           // Select question information
@@ -73,19 +73,10 @@
                 // TODO: Return user to page with answers saved
               }
             }
-
-
-            // Evaluate $scores
-            // Currently just supports correctness quizzes
-            // TODO: Extend evaluation to support multiple potential results
-            /*foreach ($scores as $type => $score) {
-
-            }*/
-
-
-            // Hardcoded selector, replace with SQL query of "rubric" DATABASE
-            $mode = "MULTIPLE_CHOICE";
-            if($mode == "MULTIPLE_CHOICE") {
+            $quizrow = mysqli_fetch_assoc($resultquiz);
+            $mode = $quizrow["scoring_mode"];
+            if($mode == "MULTIPLE_CHOICE_CORRECTNESS") {
+              // This should only have 'correct' as a parameter.
               echo '
               <div class="resultText">
                 You got...<br />
@@ -94,6 +85,87 @@
                 </div>
               </div>
               ';
+              $sql = 'SELECT * FROM results WHERE quizid=' . mysqli_real_escape_string($conn, $_GET['id']) . ' AND weight_category="correct"';
+
+              // Maybe "result" wasn't the best naming convention here.
+              $resultresults = mysqli_query($conn, $sql);
+              if($resultresults && mysqli_num_rows($resultresults) > 0) {
+                $closestScore = PHP_INT_MIN;
+                $toOutput = "";
+                while($resultresult = mysqli_fetch_assoc($resultresults)) {
+                  if($resultresult["threshold"] >= $closestScore && $resultresult["threshold"] <= $scores['correct']) {
+                    $closestScore = $resultresult["threshold"];
+                    $toOutput = '
+                    <div class="resultItemImage">
+                      <img src="resources/quiz_icons/'. htmlspecialchars($resultresult["image"]). '" width="600" />
+                    </div>
+                    <div class="resultItemInfo">
+                      <div class="resultItemTitle">
+                        '. htmlspecialchars($resultresult['resultTitle']) .'
+                      </div>
+                      <div class="resultItemText">
+                        '. htmlspecialchars($resultresult['resultText']) .'
+                      </div>
+                    </div>
+                    ';
+                  }
+                }
+                echo $toOutput;
+              } else {
+                // No results found. Assume this quiz didn't assign any.
+              }
+            } else {
+              // Default mode is 'MULTIPLE_CHOICE_MOST_LIKE'
+              // First, find highest score
+              $highestscoretype = "";
+              $highestscorevalue = PHP_INT_MIN;
+              foreach ($scores as $type => $score) {
+                if($score >= $highestscorevalue) {
+                  $highestscoretype = $type;
+                  $highestscorevalue = $score;
+                }
+              }
+
+              echo '
+              <div class="resultText">
+                You got...<br />
+              </div>
+              ';
+
+
+              // Now loop through potential results and assign the closest fit to this one.
+              $sql = 'SELECT * FROM results WHERE quizid=' . mysqli_real_escape_string($conn, $_GET['id']) . ' AND weight_category=' . mysqli_real_escape_string($conn, $type);
+              $resultresults = mysqli_query($conn, $sql);
+              if($resultresults && mysqli_num_rows($resultresults) > 0) {
+                $closestScore = PHP_INT_MIN;
+                $toOutput = "";
+                while($resultresult = mysqli_fetch_assoc($resultresults)) {
+                  if($resultresult["threshold"] >= $closestScore && $resultresult["threshold"] <= $highestscorevalue) {
+                    $closestScore = $resultresult["threshold"];
+                    $toOutput = '
+                    <div class="resultItemImage">
+                      <img src="resources/quiz_icons/'. htmlspecialchars($resultresult["image"]). '" width="600" />
+                    </div>
+                    <div class="resultItemInfo">
+                      <div class="resultItemTitle">
+                        '. htmlspecialchars($resultresult['resultTitle']) .'
+                      </div>
+                      <div class="resultItemText">
+                        '. htmlspecialchars($resultresult['resultText']) .'
+                      </div>
+                    </div>
+                    ';
+                  }
+                }
+                echo $toOutput;
+              } else {
+                // No results found. Assume this quiz didn't assign any for that weight category.
+                echo '
+                <div class="resultText">
+                  Nothing! You didn&apos;t match any quiz results.
+                </div>
+                ';
+              }
             }
 
 

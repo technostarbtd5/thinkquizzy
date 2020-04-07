@@ -199,3 +199,9 @@ a.pageButton {
 .resultTextScore {
   font-size: 2.5em;
 }
+.resultItemTitle {
+  font-size: 2.5em;
+}
+.resultItemText {
+  font-size: 1.5em;
+}
