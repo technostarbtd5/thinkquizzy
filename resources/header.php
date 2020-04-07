@@ -34,7 +34,7 @@
       // Create some dummy quizzes, as the database should be empty right now.
       $initDummyQuizzes[] = 'INSERT INTO quizzes (title, description, icon_small, icon_large, author) VALUES ("What ice cream flavor are you?", "Based on your personality traits, we\'ll match you with the ice cream flavor you are most similar to!", "icecream.png", "icecream_large.png", "Techno")';
       $initDummyQuizzes[] = ' INSERT INTO quizzes (title, description, icon_small, icon_large, author) VALUES ("We\'ll pick your next vacation based on your favorite actors!", "We all need vacation inspiration, right?", "yosemite.png", "yosemite_large.png", "Techno")';
-      $initDummyQuizzes[] = ' INSERT INTO quizzes (title, description, icon_small, icon_large, author) VALUES ("Can you identify these commonly mislabeled states?", "Not even all Americans can do this.", "statesquiz.png", "statesquiz_large.png", "Techno")';
+      $initDummyQuizzes[] = ' INSERT INTO quizzes (title, description, icon_small, icon_large, author, scoring_mode) VALUES ("Can you identify these commonly mislabeled states?", "Not even all Americans can do this.", "statesquiz.png", "statesquiz_large.png", "Techno", "MULTIPLE_CHOICE_CORRECTNESS")';
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (1, 1)';
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (2, 2)';
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (2, 3)';
@@ -42,6 +42,9 @@
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Food", "food", "Bite-size quizzes about your favorite dishes to please your taste buds")';
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Places", "places", "How well do you know your planet?")';
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("People", "people", "Stars aren\'t just in the sky.")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Personality", "personality", "Learn more about yourself!")';
+
+      // Test correctness quiz
       $initDummyQuizzes[] = 'INSERT INTO questions (quizid, questiontext, image) VALUES (3, "First, the northeast. What\'s the state on the left of this pair?", "states1.png")';
       $initDummyQuizzes[] = 'INSERT INTO questions (quizid, questiontext, image) VALUES (3, "Now we head to Appalachia. Which state is this?", "states2.png")';
       $initDummyQuizzes[] = 'INSERT INTO questions (quizid, questiontext, image) VALUES (3, "Onto the deep south! What state does the arrow point to?", "states3.png")';
@@ -72,6 +75,11 @@
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (6, -1, "Nebraska", "{\"correct\": 0}")';
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (6, -1, "South Dakota", "{\"correct\": 0}")';
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (6, -1, "Iowa", "{\"correct\": 0}")';
+      $initDummyQuizzes[] = 'INSERT INTO results (quizid, image, resultTitle, resultText, weight_category, threshold) VALUES (3, "statesresult1.png", "Out of states", "You\'re probably not from any of these areas, are you?", "correct", 0)';
+      $initDummyQuizzes[] = 'INSERT INTO results (quizid, image, resultTitle, resultText, weight_category, threshold) VALUES (3, "statesresult2.png", "Typical American", "You know some of these areas, but not all.", "correct", 2)';
+      $initDummyQuizzes[] = 'INSERT INTO results (quizid, image, resultTitle, resultText, weight_category, threshold) VALUES (3, "statesresult3.png", "Looked at a map", "Geography\'s not too difficult for you, but there\'s room for improvement!", "correct", 4)';
+      $initDummyQuizzes[] = 'INSERT INTO results (quizid, image, resultTitle, resultText, weight_category, threshold) VALUES (3, "statesresult4.png", "Geography Geek", "Congrats, you actually know some tricky parts of the US map!", "correct", 6)';
+
       /* Copy-pasteable form:
       INSERT INTO quizzes (title, description, icon_small, icon_large, author)
       VALUES ("What ice cream flavor are you?",
@@ -119,6 +127,7 @@
       author VARCHAR(400),
       views INT DEFAULT 0,
       recent_views INT DEFAULT 0,
+      scoring_mode VARCHAR(200) DEFAULT 'MULTIPLE_CHOICE_MOST_LIKE',
       reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )";
 
@@ -206,6 +215,27 @@
     }
 
 
+    // Create table for potential quiz results
+    // weight_category should correspond to the categoryname you want this to be associated with
+    // threshold is the minimum threshold for this result to display. Use when assigning multiple results to the same weight.
+    $sql = "CREATE TABLE results (
+      resultid INT AUTO_INCREMENT PRIMARY KEY,
+      quizid INT,
+      image VARCHAR(2000),
+      resultTitle VARCHAR(2000),
+      resultText VARCHAR(30000),
+      weight_category VARCHAR(2000),
+      threshold INT DEFAULT 0
+    )";
+
+    if (mysqli_query($conn, $sql)) {
+        //echo "Table answers created successfully";
+    } else {
+        //echo "Error creating table: " . mysqli_error($conn);
+    }
+
+
+
     /* Sample query:
     INSERT INTO categories (name, identifying_name, description)
     VALUES ("Food", "food", "Bite-size quizzes about your favorite dishes to please your taste buds");
@@ -220,7 +250,7 @@
         if (mysqli_query($conn, $initDummyQuiz)) {
             //echo "Added dummy quiz";
         } else {
-            echo "Failed to add dummy quiz<br />$initDummyQuiz<br />";
+            echo "Failed to add dummy quiz<br />$initDummyQuiz<br />"  . mysqli_error($conn) . "<br />";
         }
       }
     }
@@ -286,7 +316,7 @@
       let moreHTML = "";
 
       // Replace with PHP SQL query to get top 25 categores
-      const extraCategories = ["Pets", "Celebrities", "History", "Food", "Movies", "Books", "Music", "Math", "Science", "Language"];
+      const extraCategories = ["Pets", "Personality", "History", "Food", "Movies", "Books", "Music", "Math", "Science", "Language"];
 
       // Add extra categories as cells in the "More Bar" grid.
       extraCategories.forEach((item, i) => {
