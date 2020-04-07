@@ -7,8 +7,8 @@
   ?>
   <div style="padding: 8em">
     Content belongs here!
-    </br>
-    </br>
+    <br />
+    <br />
 
     <a class="pageButton" href="results.php">Submit</a>
   </div>

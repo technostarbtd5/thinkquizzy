@@ -193,3 +193,9 @@ a.pageButton {
 .red {
   background: blue;
 }
+.resultText {
+  font-size: 1.5em;
+}
+.resultTextScore {
+  font-size: 2.5em;
+}
