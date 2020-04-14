@@ -317,7 +317,7 @@ input[type="text"].builderQuizDesc {
 }
 .builderQuizOption {
   display: grid;
-  grid-template-columns: 12% 60% 1.5em 20% auto;
+  grid-template-columns: 12% 60% 1.5em 15% auto;
   padding: 0em;
   margin: 0.5em;
   grid-column-gap: 0.5em;
@@ -412,4 +412,9 @@ input[type="submit"] {
 .builderQuizScoreButtonWeightsSelected:hover {
   border-color: #aaa;
   background-color: #bbb;
+}
+.builderQuizAnswerWeights {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  padding: 0.5em;
 }

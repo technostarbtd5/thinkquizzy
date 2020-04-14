@@ -36,7 +36,7 @@ function addQuestion() {
           <span class="builderQuizAnswerRemove" id="builderQuizQuestion_${questionCount}_Answer_0_Remove">-</span>
           <span class="builderQuizAnswerScoreButton" id="builderQuizQuestion_${questionCount}_Answer_0_ScoreButton">&#10004;</span>
           <span></span>
-          <div class="builderQuizAnswerWeights" id="builderQuizAnswer_0_Weights"></div>
+          <div class="builderQuizAnswerWeights" id="builderQuizQuestion_${questionCount}_Answer_0_Weights"></div>
         </li>
       </ul>
       <div class="builderQuizQuestionAddAnswer" id="builderQuizQuestion_${questionCount}_AddAnswer">
@@ -47,10 +47,13 @@ function addQuestion() {
 
   questionCount = $("#builderQuizQuestions").children().length - 1;
   $(`#builderQuizQuestion_${questionCount}_Remove`).click(removeQuestion);
+
+  // Make sure weights are hidden on question creation!
+  $(`#builderQuizQuestion_${questionCount}_Answer_0_Weights`).hide(0);
   refreshAll();
 }
 
-//
+// function to remove question
 function removeQuestion() {
   console.log("Removing question");
   $.when(
@@ -72,6 +75,7 @@ function removeQuestion() {
             data.push($(this).val());
           });
 
+        // Update question IDs
         let html = $(this).html();
         let split = html.split("_");
         for (var j = 1; j < split.length; j++) {
@@ -104,6 +108,8 @@ function removeQuestion() {
         joined = split.join(" ");
         $(this).html(joined);
         $(this).attr("id", i);
+
+        // restore data
         $(this)
           .find("input")
           .each(function(j) {
@@ -172,6 +178,8 @@ function removeAnswer() {
       joined = split.join(" ");
       $(this).html(joined);
       $(this).attr("id", i);
+
+      // restore data
       $(this)
         .find("input")
         .each(function(j) {
@@ -198,7 +206,7 @@ function addAnswer() {
     <span class="builderQuizAnswerRemove" id="builderQuizQuestion_${questionID}_Answer_${answerCount}_Remove">-</span>
     <span class="builderQuizAnswerScoreButton" id="builderQuizQuestion_${questionID}_Answer_${answerCount}_ScoreButton">&#10004;</span>
     <span></span>
-    <div class="builderQuizAnswerWeights" id="builderQuizAnswer_${answerCount}_Weights"></div>
+    <div class="builderQuizAnswerWeights" id="builderQuizQuestion_${questionID}_Answer_${answerCount}_Weights"></div>
   </li>`;
   //console.log(html);
   $(this)
@@ -206,7 +214,7 @@ function addAnswer() {
     .find("ul")
     .eq(0)
     .append(html);
-  $(`#builderQuizAnswer_${answerCount}_Weights`).hide(0);
+  $(`#builderQuizQuestion_${questionID}_Answer_${answerCount}_Weights`).hide(0);
   refreshAll();
 }
 
@@ -259,6 +267,7 @@ function scoreButtonClick() {
   console.log("Score button clicked");
   if (activeMode == "builderModeSimilar") {
     let selected = false;
+    // Calculate whether or not the button was sleected based on button visiblity
     $(this)
       .parent()
       .find(".builderQuizAnswerWeights")
@@ -266,6 +275,7 @@ function scoreButtonClick() {
         $(this).toggle(0);
         selected = $(this).is(":visible");
       });
+
     if (selected) {
       updateScoreButtonClasses(
         $(this),
@@ -279,6 +289,8 @@ function scoreButtonClick() {
     }
   } else {
     let selected = false;
+
+    // Calculate whetehr or not button was selected based on "correct" weight value
     $(this)
       .parent()
       .find('*[data-weight="correct"]')
@@ -308,6 +320,7 @@ function scoreButtonClick() {
   }
 }
 
+// Function to update classes whenever someone toggles a score button
 function updateScoreButtonClasses(button, activeClass) {
   button.removeClass("builderQuizScoreButtonCheckSelected");
   button.removeClass("builderQuizScoreButtonCheckDeselected");
@@ -316,6 +329,7 @@ function updateScoreButtonClasses(button, activeClass) {
   button.addClass(activeClass);
 }
 
+// Function to be called whenever a new "active mode" may be selected. Can also refresh all grading-related elements.
 function activeModeSwap(newMode) {
   activeMode = newMode;
   $(".builderQuizModeButton").each(function() {
