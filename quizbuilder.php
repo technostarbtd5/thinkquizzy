@@ -8,7 +8,6 @@
     Build your new quiz here!
   </div>
   <div id="builderInfoDesc">
-
   </div>
   <form action="resources/quizbuildersubmit.php" method="post" id="builderQuizForm" onsubmit="return validateQuizBuilder();">
     <div id="builderQuizInfo">
@@ -34,6 +33,19 @@
       </div>
       <div class="builderQuizModeButton" id="builderModeSimilar">
         Most Similar
+      </div>
+      <input type="hidden" id="builderQuizModeOutput" name="builderQuizModeOutput" value="builderModeCorrect"/>
+
+    </div>
+    <div id="builderQuizAllWeights">
+      <div id="builderQuizAllWeightsTitle">
+        Weight Categories:
+      </div>
+      <div id="builderQuizAllWeightsItems">
+
+      </div>
+      <div id="builderQuizAddWeight">
+        Add Weight
       </div>
     </div>
     <div id="builderQuizQuestions">

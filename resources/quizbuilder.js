@@ -1,6 +1,11 @@
 // Add buttons to modify form elements
+
+// Global page values
 var activeMode = "builderModeCorrect";
 var weights = ["correct"];
+var weightLabels = { correct: "Correct" };
+var customWeightCount = 0;
+
 $(document).ready(function() {
   $("#builderQuizAddQuestion").click(addQuestion);
   addQuestion();
@@ -14,6 +19,7 @@ $(document).ready(function() {
       $(this).removeClass("builderQuizModeButtonActive");
     }
   });
+  $("#builderQuizAddWeight").click(addWeightItem);
   refreshAll();
 });
 
@@ -236,7 +242,19 @@ function refreshAll() {
   $(".builderQuizAnswerScoreButton")
     .unbind("click")
     .click(scoreButtonClick);
+
+  // .on("click", function() {
+  //   console.log("Input change detected in weights!");
+  //   changeWeightName();
+  // });
   activeModeSwap(activeMode);
+  renderWeightItems();
+  $(".builderQuizWeightsItemTitle")
+    .unbind("input")
+    .on("input", changeWeightName);
+  $(".builderQuizWeightsItemRemove")
+    .unbind("click")
+    .click(removeWeightItem);
 }
 
 function validateQuizBuilder() {
@@ -260,7 +278,8 @@ function validateQuizBuilder() {
 // Not a security thing - this just helps out the front end so the user doesn't cause strange behavior.
 // All form validation is repeated on the back end.
 function sanitizeWeightName(name) {
-  return name.replace(/_/g, "-").replace(/ /g, "-");
+  let temp = name.replace(/_/g, "-");
+  return temp.replace(/\s/g, "-");
 }
 
 function scoreButtonClick() {
@@ -332,6 +351,7 @@ function updateScoreButtonClasses(button, activeClass) {
 // Function to be called whenever a new "active mode" may be selected. Can also refresh all grading-related elements.
 function activeModeSwap(newMode) {
   activeMode = newMode;
+  $("#builderQuizModeOutput").val(newMode);
   $(".builderQuizModeButton").each(function() {
     if ($(this).attr("id") == activeMode) {
       $(this).addClass("builderQuizModeButtonActive");
@@ -341,30 +361,30 @@ function activeModeSwap(newMode) {
   });
   $(".builderQuizAnswerWeights").each(function(i) {
     // Save field data
-    let data = [];
+    let data = {};
     let visibility = $(this).is(":visible");
 
     $(this)
       .find("input")
       .each(function() {
-        data.push($(this).val());
+        data[$(this).data("weight")] = $(this).val();
       });
 
     // Update weights portfolio.
     html = "";
     weights.forEach((item, j) => {
       //console.log(item);
-      let defaultValue = "";
+      let defaultValue = 0;
       if (item == "correct") {
         //console.log("has default value of 0");
-        defaultValue = "0";
+        defaultValue = 0;
         if (data[j] === "") {
           data[j] = 0;
         }
       }
       html += `<div class="builderQuizAnswerWeightItem">
-        <label for="builderQuizAnswer_${i}_Weight_${item}" id="builderQuizAnswer_${i}_WeightLabel_${item}">${item}: </label>
-        <input type="text" id="builderQuizAnswer_${i}_Weight_${item}" name="builderQuizAnswer_${i}_Weight_${item}"  data-weight="${item}" value="${defaultValue}" />
+        <label for="builderQuizAnswer_${i}_Weight_${item}" id="builderQuizAnswer_${i}_WeightLabel_${item}">${weightLabels[item]}: </label>
+        <input type="number" id="builderQuizAnswer_${i}_Weight_${item}" name="builderQuizAnswer_${i}_Weight_${item}"  data-weight="${item}" value="${defaultValue}" />
       </div>`;
     });
     $(this).html(html);
@@ -386,7 +406,11 @@ function activeModeSwap(newMode) {
     $(this)
       .find("input")
       .each(function(j) {
-        $(this).val(data[j]);
+        if ($(this).data("weight") in data) {
+          $(this).val(data[$(this).data("weight")]);
+        } else {
+          $(this).val(0);
+        }
       });
     if (visibility) {
       $(this).show(0);
@@ -412,6 +436,7 @@ function activeModeSwap(newMode) {
           : "builderQuizScoreButtonWeightsDeselected"
       );
     });
+    $("#builderQuizAllWeights").show(0);
   } else {
     $(".builderQuizAnswerWeights").each(function() {
       $(this).hide(0);
@@ -432,5 +457,58 @@ function activeModeSwap(newMode) {
           : "builderQuizScoreButtonCheckDeselected"
       );
     });
+    $("#builderQuizAllWeights").hide(0);
   }
+}
+
+function renderWeightItems() {
+  let html = "";
+
+  // Collect form data for weight item names
+  let data = Object.assign({}, weightLabels);
+  weights.forEach((item, i) => {
+    // "correct" weight should ALWAYS be present
+    if (item != "correct") {
+      html += `<div id="builderQuizWeightsItem_${item}" class="builderQuizWeightsItem">
+        <label for="builderQuizWeightsItem_${item}_Title" id="builderQuizWeightsItem_${item}_Raw" class="builderQuizWeightsItemRaw">${item}: </label>
+        <input type="text" id="builderQuizWeightsItem_${item}_Title" name="builderQuizWeightsItem_${item}_Title" class="builderQuizWeightsItemTitle" data-weight="${item}" value="${
+        item in data && data[item] ? data[item] : item
+      }"/>
+      <span class="builderQuizWeightsItemRemove">-</span>
+      </div>`;
+    }
+  });
+  console.log(html);
+  $("#builderQuizAllWeightsItems").html(html);
+}
+
+function addWeightItem() {
+  let item = `Custom-Weight-${customWeightCount}`;
+  customWeightCount += 1;
+  weights.push(item);
+  weightLabels[item] = item;
+  $("#builderQuizAllWeightsItems").append(`
+    <div id="builderQuizWeightsItem_${item}" class="builderQuizWeightsItem">
+      <label for="builderQuizWeightsItem_${item}_Title" id="builderQuizWeightsItem_${item}_Raw" class="builderQuizWeightsItemRaw">${weightLabels[item]}: </label>
+      <input type="text" id="builderQuizWeightsItem_${item}_Title" name="builderQuizWeightsItem_${item}_Title" class="builderQuizWeightsItemTitle" data-weight="${item}" value="${weightLabels[item]}"/>
+      <span class="builderQuizWeightsItemRemove">-</span>
+    </div>
+    `);
+  refreshAll();
+}
+
+function changeWeightName() {
+  weightLabels[$(this).data("weight")] = $(this).val();
+  activeModeSwap(activeMode);
+}
+
+function removeWeightItem() {
+  let item = $(this)
+    .parent()
+    .find("input")
+    .eq(0)
+    .data("weight");
+  weights = weights.filter(weight => weight != item);
+  delete weightLabels[item];
+  refreshAll();
 }

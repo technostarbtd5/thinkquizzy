@@ -14,6 +14,10 @@
       $formValid = false;
     }
 
+    foreach ($_POST as $key => $value) {
+      echo htmlspecialchars("$key, $value") . "<br />";
+    }
+
     // Validate quiz questions and answers
     $i = 0;
     while(isset($_POST["builderQuizQuestion_" . $i . "_Title"])) {
@@ -25,12 +29,27 @@
         // ERROR: Question must have associated answers!
         $formValid = false;
       }
+      $i++;
     }
     if($i == 0) {
       // ERROR: Quiz must have associated questions!
       $formValid = false;
     }
+    echo "All questions have answers? " . ($formValid ? "Yes<br />" : "No<br />");
 
+    // Find Weights
+    $weights = array("correct");
+    foreach ($_POST as $key => $value) {
+      if(substr($key, 0, strlen("builderQuizWeightsItem_")) == "builderQuizWeightsItem_" && strlen($key) > strlen("builderQuizWeightsItem_")) {
+        $temp = substr($key, strlen("builderQuizWeightsItem_"));
+        $weights[] = substr($temp, 0, strlen($temp) - strlen("_Title"));
+      }
+    }
+    print_r($weights);
+
+    // Ensure all answers have all weights
+
+    
     // Execute SQL!
     $formValid = false;
     if($formValid) {
@@ -40,6 +59,7 @@
         $i = 0;
         while(isset($_POST["builderQuizQuestion_" . $i . "_Title"])) {
           $sql = 'INSERT INTO questions (quizid, questiontext, image) VALUES (' . $quiz_id . ', "' . mysqli_real_escape_string($conn, $_POST["builderQuizQuestion_" . $i . "_Title"]) . '", "yosemite_large.png")';
+          $i++;
         }
       }
     }
