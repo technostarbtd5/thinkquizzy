@@ -9,7 +9,7 @@
   </div>
   <div id="builderInfoDesc">
   </div>
-  <form action="resources/quizbuildersubmit.php" method="post" id="builderQuizForm" onsubmit="return validateQuizBuilder();">
+  <form action="quizbuildersubmit.php" method="post" id="builderQuizForm" onsubmit="return validateQuizBuilder();">
     <div id="builderQuizInfo">
       <div class="builderQuizInfoSegment">
         <label for="builderQuizTitle" class="builderQuizTitle">Quiz Title:</label>

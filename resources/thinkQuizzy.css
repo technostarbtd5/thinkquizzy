@@ -36,6 +36,11 @@ a:focus {
   font-size: 2em;
   font-family: "Arial Black", Gadget, sans-serif;
 }
+#quizBuilderLink {
+  font-size: 1.5em;
+  padding-top: 0.5em;
+  font-family: "Arial", Gadget, sans-serif;
+}
 #footerBar {
   background-color: #dddddd;
   box-sizing: border-box;

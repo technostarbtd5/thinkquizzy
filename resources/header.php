@@ -39,6 +39,9 @@
       <a href="index.php" id="logo" class="left">
         ThinkQuizzy
       </a>
+      <a href="quizbuilder.php" id="quizBuilderLink" class="right">
+        Quiz Builder
+      </a>
     </div>
     <div id="menuBar">
     </div>
