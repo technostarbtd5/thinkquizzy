@@ -35,6 +35,17 @@ a:focus {
 #logo {
   font-size: 2em;
   font-family: "Arial Black", Gadget, sans-serif;
+  display: grid;
+  width: 30%;
+  grid-template-columns: 80% 20%;
+}
+#logo > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+#logo > img {
+  display: table-cell;
+  vertical-align: middle;
 }
 #quizBuilderLink {
   font-size: 1.5em;

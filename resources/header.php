@@ -30,6 +30,7 @@
   <meta charset="utf-8">
   <title><?php echo $titleTag;?>ThinkQuizzy</title>
   <link rel="stylesheet" href="resources/thinkQuizzy.css" />
+  <link rel="shortcut icon" href="resources/tqfavicon.png" type="image/x-icon">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="resources/helpers.js"></script>
 </head>
@@ -37,7 +38,9 @@
   <div id=main>
     <div id="headerBar">
       <a href="index.php" id="logo" class="left">
-        ThinkQuizzy
+        <div>
+          ThinkQuizzy
+        </div> <img src="resources/ThinkQuizzyLogo.png" height="48"/>
       </a>
       <a href="quizbuilder.php" id="quizBuilderLink" class="right">
         Quiz Builder
