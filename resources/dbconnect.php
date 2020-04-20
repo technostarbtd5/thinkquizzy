@@ -53,9 +53,9 @@
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (2, -1, "Tennessee", "{\"correct\": 1}")';
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (2, -1, "Arkansas", "{\"correct\": 0}")';
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (3, -1, "Louisiana", "{\"correct\": 0}")';
-      $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (3, -1, "Alabama", "{\"correct\": 0}")';
+      $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (3, -1, "Alabama", "{\"correct\": 1}")';
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (3, -1, "Georgia", "{\"correct\": 0}")';
-      $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (3, -1, "Mississippi", "{\"correct\": 1}")';
+      $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (3, -1, "Mississippi", "{\"correct\": 0}")';
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (4, -1, "Oregon", "{\"correct\": 1}")';
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (4, -1, "Washington", "{\"correct\": 0}")';
       $initDummyQuizzes[] = 'INSERT INTO answers (questionid, optionnumber, answertext, weight) VALUES (4, -1, "Idaho", "{\"correct\": 0}")';
