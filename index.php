@@ -27,9 +27,6 @@
     }
     include("resources/header.php");
   ?>
-  <div style="padding: 8em">
-    Content belongs here!
-  </div>
   <div class="gridcontainer">
     <div class="column">
 
