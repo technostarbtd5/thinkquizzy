@@ -6,6 +6,14 @@
     include("resources/header.php");
   ?>
   <div style="padding: 8em">
+    <!-- <div>
+      Debugging!<br />
+      <?php
+        // foreach ($_POST as $key => $value) {
+        //   echo htmlspecialchars("$key, $value") . "<br />";
+        // }
+       ?>
+    </div> -->
     <!--Content belongs here!-->
     <?php
       // First, get questions and answers from database.
@@ -185,8 +193,8 @@
     ?>
     </br>
     </br>
+    <?php echo '<a class="pageButton" href="quiz.php?id='.htmlspecialchars($_GET['id']).'">&#129028; Return</a>'; ?>
 
-    <a class="pageButton" href="quiz.php">&#129028; Return</a>
 
     <a class="pageButton" href="index.php">&#129093; Home</a>
 
