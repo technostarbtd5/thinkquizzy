@@ -542,6 +542,32 @@ input[type="submit"] {
   color: #4e0000;
 }
 
+#sidebar {
+  background: #eeeeee;
+  margin: 1.5em;
+  padding: 2em;
+}
+.sidebarQuiz {
+  text-indent: 0;
+  
+}
+.sidebarQuiz:link {
+  color: #447733;
+}
+.sidebarQuiz:visited {
+  color: #336622;
+}
+
+.sidebarQuizStats {
+  font-size: 1em;
+  color: gray;
+}
+
+#sidebarTitle {
+  font-size: 1.3em;
+  margin-bottom: 0.2em;
+}
+
 .ui-autocomplete {
   height: 200px;
   overflow-y: scroll;

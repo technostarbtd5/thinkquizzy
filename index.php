@@ -93,7 +93,81 @@
         ?>
 
     </div>
+    
+    <div class="column">
+      <div id="sidebar">
+      
+        <?php
+          
+          // for top quizzes
+          $sql = "SELECT * FROM quizzes ORDER BY views DESC LIMIT 5";
+          // Execute the selection query.
+          $result = mysqli_query($conn, $sql);
+          $listNum = 1;
+          if($result && mysqli_num_rows($result) > 0) {
+            // Output items as a series of linking rows.
+            echo '
+                  <div id="sidebarTitle">
+                    Top ThinkQuizzy Quizzes:
+                  </div>
+            ';
+            while($row = mysqli_fetch_assoc($result)) {
+              echo '
+                    <p>
+                    <a class="sidebarQuiz" href="quiz.php?id=' . htmlspecialchars($row["id"]) . '">
+                      '. $listNum . ". " . htmlspecialchars($row['title']) .'</br>Views: ' . htmlspecialchars($row['views']) . '
+                    </a>
+                    </p>
+              ';
+              $listNum++;
+            }
+          } else {
+            // Send back an error message just in case.
+            echo '
+              <div class="quizItem quizItemInfo">
+                Your quiz search has not returned any results!
+              </div>
+            ';
+          }
+          
+          // for top categories
+          $sql = "SELECT * FROM categories ORDER BY num_quizzes_with_category DESC LIMIT 5";
+          // Execute the selection query.
+          $result = mysqli_query($conn, $sql);
+          $listNum = 1;
+          if($result && mysqli_num_rows($result) > 0) {
+            // Output items as a series of linking rows.
+            echo '
+                  </br></br>
+                  <div id="sidebarTitle">
+                    Top ThinkQuizzy Categories:
+                  </div>
+            ';
+            while($row = mysqli_fetch_assoc($result)) {
+              echo '
+                    <p>
+                    <a class="sidebarQuiz" href="index.php?sort=' . htmlspecialchars($row["identifying_name"])
+                      . '">'. $listNum . ". " . htmlspecialchars($row['name']) .'</br>Total Quizzes: '
+                      . htmlspecialchars($row['num_quizzes_with_category']) . '
+                    </a>
+                    </p>
+              ';
+              $listNum++;
+            }
+          } else {
+            // Send back an error message just in case.
+            echo '
+              <div class="quizItem quizItemInfo">
+                Your quiz search has not returned any results!
+              </div>
+            ';
+          }
 
+        ?>
+      
+      </div>
+    </div>
+    
   </div>
   <?php include("resources/footer.php"); ?>
 </html>
