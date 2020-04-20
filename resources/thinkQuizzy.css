@@ -39,6 +39,22 @@ a:focus {
 #logo {
   font-size: 2em;
   font-family: "Arial Black", Gadget, sans-serif;
+  display: grid;
+  width: 30%;
+  grid-template-columns: 80% 20%;
+}
+#logo > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+#logo > img {
+  display: table-cell;
+  vertical-align: middle;
+}
+#quizBuilderLink {
+  font-size: 1.5em;
+  padding-top: 0.5em;
+  font-family: "Arial", Gadget, sans-serif;
 }
 #footerBar {
   background-color: #dddddd;
@@ -204,9 +220,326 @@ a.pageButton {
   font-size: 1.3em;
   margin-bottom: 0.2em;
 }
+.resultText {
+  font-size: 1.5em;
+}
+.resultTextScore {
+  font-size: 2.5em;
+}
+.resultItemTitle {
+  font-size: 2.5em;
+}
+.resultItemText {
+  font-size: 1.5em;
+}
 
-.red {
-  background: blue;
+/* quizbuilder.php */
+#builderQuizInfo {
+  padding: 0.5em 1em;
+  padding-left: 2em;
+}
+.builderQuizInfoSegment {
+  display: grid;
+  grid-template-columns: 25% auto;
+  padding: 0.5em;
+}
+#builderQuizMode {
+  display: grid;
+  grid-template-columns: 25% 15% 15% auto;
+  background-color: #eeeeee;
+  padding: 1em;
+  margin: 0 1.5em;
+}
+.builderQuizMode {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 1.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+}
+.builderQuizModeButton {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  overflow: auto;
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+  align-self: stretch;
+  font-size: 100%;
+  background: #336622;
+  color: white;
+}
+.builderQuizModeButton:hover {
+  background-color: #55883f;
+}
+.builderQuizModeButtonActive {
+  background-color: #447733;
+}
+label.builderQuizTitle {
+  padding: 1em;
+  font-size: 2em;
+  display: table-cell;
+  overflow: auto;
+}
+input[type="text"].builderQuizTitle {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  font-size: 1.5em;
+  display: table-cell;
+  overflow: auto;
+}
+label.builderQuizDesc {
+  padding: 1em;
+  font-size: 1.5em;
+  display: table-cell;
+  overflow: auto;
+}
+input[type="text"].builderQuizDesc {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  font-size: 1em;
+  display: table-cell;
+  overflow: auto;
+}
+.builderQuizQuestion {
+  background: #eeeeee;
+  margin: 1.5em;
+  padding: 1em;
+}
+.builderQuizQuestionInfo {
+  display: grid;
+  grid-template-columns: 12% 60% 2em auto;
+  padding: 0em;
+  margin: 0.5em;
+  grid-column-gap: 0.5em;
+}
+.builderQuizQuestionInfo > input[type="text"] {
+  font-size: 1.2em;
+}
+.builderQuizQuestionInfoNumber {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0.5em;
+}
+.builderQuizQuestionRemove {
+  background: #4e0000;
+  color: white;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  padding-top: 0.45em;
+}
+.builderQuizAnswerRemove {
+  background: #4e0000;
+  color: white;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+}
+.builderQuizQuestionRemove:hover {
+  background: #af2828;
+}
+.builderQuizAnswerRemove:hover {
+  background: #af2828;
+}
+.builderQuizOption {
+  display: grid;
+  grid-template-columns: 12% 60% 1.5em 15% auto;
+  padding: 0em;
+  margin: 0.5em;
+  grid-column-gap: 0.5em;
+}
+.builderQuizOption > label {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 0.5em;
+}
+.builderQuizQuestionAddAnswer {
+  padding: 0.4em 0.8em;
+  margin-left: 2.5em;
+  color: white;
+  display: inline-block;
+  background-color: #336622;
+}
+.builderQuizQuestionAddAnswer:hover {
+  background-color: #55883f;
+}
+#builderQuizAddQuestion {
+  padding: 0.8em 1.6em;
+  margin: 1em;
+  margin-top: 0em;
+  margin-left: 1.5em;
+  color: white;
+  display: inline-block;
+  background-color: #336622;
+}
+#builderQuizAddQuestion:hover {
+  background-color: #55883f;
+}
+input[type="submit"] {
+  border: none;
+  font-size: 1em;
+}
+#builderQuizAddWeight {
+  padding: 0.8em 1.6em;
+  margin: 1em;
+  margin-top: 0em;
+  margin-left: 1.5em;
+  color: white;
+  display: inline-block;
+  background-color: #336622;
+}
+#builderQuizAddWeight:hover {
+  background-color: #55883f;
+}
+input[type="submit"] {
+  border: none;
+  font-size: 1em;
+}
+#builderFormErrors {
+  color: #4e0000;
+  margin: 0em 1em 1em 1.5em;
+}
+#builderInfo {
+  margin: 1.5em;
+  font-size: 3em;
+}
+.builderQuizScoreButtonCheckDeselected {
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+  border: 1px;
+  border-style: solid;
+  border-color: #ccc;
+  color: #ccc;
+  background: white;
+}
+.builderQuizScoreButtonCheckDeselected:hover {
+  background: #bbb;
+  border-color: #aaa;
+}
+.builderQuizScoreButtonCheckSelected {
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+  border: 1px;
+  border-style: solid;
+  border-color: #224411;
+  color: white;
+  background-color: #336622;
+}
+.builderQuizScoreButtonCheckSelected:hover {
+  background-color: #55883f;
+}
+
+.builderQuizScoreButtonWeightsDeselected {
+  height: 1.5em;
+  text-align: center;
+  border: 1px;
+  border-style: solid;
+  border-color: #ccc;
+  background: white;
+}
+.builderQuizScoreButtonWeightsDeselected:hover {
+  background: #bbb;
+  border-color: #aaa;
+}
+.builderQuizScoreButtonWeightsSelected {
+  height: 1.5em;
+  text-align: center;
+  border: 1px;
+  border-style: solid;
+  border-color: #aaa;
+  background-color: #ddd;
+}
+.builderQuizScoreButtonWeightsSelected:hover {
+  border-color: #aaa;
+  background-color: #bbb;
+}
+.builderQuizAnswerWeights {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  padding: 0 0.5em;
+  margin-top: 0.5em;
+  background-color: #ddd;
+}
+.builderQuizAnswerWeightItem {
+  margin: 0.5em;
+}
+#builderQuizAllWeights {
+  background-color: #dddddd;
+  padding: 1em;
+  margin: 0 1.5em;
+}
+#builderQuizAllWeightsTitle {
+  font-size: 1.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+}
+.builderQuizWeightsItem {
+  display: grid;
+  grid-template-columns: 15% 30% 1.5em auto;
+  padding: 0em;
+  margin: 0.5em;
+  margin-left: 2em;
+  grid-column-gap: 0.5em;
+}
+.builderQuizWeightsItemRaw {
+  display: table-cell;
+  padding-top: 0.2em;
+}
+.builderQuizWeightsItemRemove {
+  background: #4e0000;
+  height: 1.5em;
+  color: white;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+}
+.builderQuizWeightsItemRemove:hover {
+  background: #af2828;
+}
+
+/* quiz.php */
+#quizForm {
+  margin: 0 4em;
+}
+.questiontext {
+  font-size: 1.5em;
+  padding: 0.5em 1em;
+}
+.quizQuestionImage {
+  width: 500px;
+  margin: 1em;
+}
+.answerchoice {
+  margin: 0.5em 1em 0.5em 3em;
+  padding: 0.5em;
+  width: 300px;
+  background-color: #eee;
+  border: 1px;
+  border-style: solid;
+  border-color: #aaa;
+}
+.answerSelected {
+  background-color: #bbb;
+}
+#quizTitle {
+  margin: 2em 2em 1em 86px;
+  font-size: 2em;
+}
+#quizDesc {
+  margin: 1em 2em 2em 86px;
+  font-size: 1.25em;
+}
+#quizErrorAlerts {
+  color: #4e0000;
 }
 
 .ui-autocomplete {
