@@ -17,6 +17,10 @@ a:visited {
 a:focus {
   color: inherit;
 }
+::placeholder {
+  color: #888;
+  font-style: italic;
+}
 #main {
   max-width: 1000px;
   margin: auto;
@@ -70,6 +74,17 @@ a:focus {
   background-color: #336622;
   text-align: center;
   box-sizing: border-box;
+}
+#searchBar {
+  background-color: #f9fbf9;
+  border: 2px solid #336622;
+  width: 26em;
+  padding: 0.6em;
+  margin-top: 0.375em;
+  margin-left: 4em;
+  margin-bottom: 0em;
+  font-size: 1em;
+  display: inline-block;
 }
 .moreBar {
   background: #224411;
@@ -525,4 +540,11 @@ input[type="submit"] {
 }
 #quizErrorAlerts {
   color: #4e0000;
+}
+
+.ui-autocomplete {
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 26em;
 }
