@@ -543,13 +543,16 @@ input[type="submit"] {
 }
 
 #sidebar {
+  display: table-cell;
+}
+#sidebarInner {
   background: #eeeeee;
   margin: 1.5em;
+  margin-left: 0;
   padding: 2em;
 }
 .sidebarQuiz {
   text-indent: 0;
-  
 }
 .sidebarQuiz:link {
   color: #447733;

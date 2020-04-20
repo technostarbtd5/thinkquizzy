@@ -93,12 +93,13 @@
         ?>
 
     </div>
-    
+
     <div class="column">
       <div id="sidebar">
-      
+        <div id="sidebarInner">
+
         <?php
-          
+
           // for top quizzes
           $sql = "SELECT * FROM quizzes ORDER BY views DESC LIMIT 5";
           // Execute the selection query.
@@ -129,7 +130,7 @@
               </div>
             ';
           }
-          
+
           // for top categories
           $sql = "SELECT * FROM categories ORDER BY num_quizzes_with_category DESC LIMIT 5";
           // Execute the selection query.
@@ -164,10 +165,12 @@
           }
 
         ?>
-      
+          
+        </div>
+
       </div>
     </div>
-    
+
   </div>
   <?php include("resources/footer.php"); ?>
 </html>

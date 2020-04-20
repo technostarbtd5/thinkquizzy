@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<!-- <head>
 	<title>Quiz Page</title>
-</head>
+</head> -->
   <?php
 
   	// Connect to the database
   	include("resources/header.php");
+	?>
+
+
+
+	<?php
 
 
   // Get the data we need from the SQL database
@@ -90,7 +95,9 @@
     </form>
     <br />
     <br />
-  </div>
+
+
+  <!-- </div> -->
   <?php include("resources/footer.php"); ?>
 </html>
 
