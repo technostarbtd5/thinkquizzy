@@ -312,7 +312,8 @@
           $catrows = array();
           while($row = mysqli_fetch_assoc($res)) {
             // $rows['object_name'][] = $r;
-            array_push($catrows,$r['name']);
+            $string = 'Category | ' . $row['name'];
+            array_push($catrows,$string);
           }
           
           // get all quizzes and
@@ -323,8 +324,9 @@
           $descrows = array();
           while($row = mysqli_fetch_assoc($res)) {
             // $rows['object_name'][] = $r;
-            array_push($quizrows,$r['title']);
-            array_push($descrows,$r['description']);
+            $string = 'Quiz ' . $row['id'] . ' | ' . $row['title'] . " " . $row['description'];
+            array_push($quizrows,$string);
+            // array_push($descrows,$row['description']);
           }
           // put the categories, quizzes, and descriptions into an array as elements
           $all = array('cats' => $catrows, 'quizzes' => $quizrows, 'descs' => $descrows);
@@ -334,7 +336,13 @@
           ?>
       </div>
       <script>
+        // keeps the drop-down menu the same width as the search bar
+        jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+          var ul = this.menu.element;
+          ul.outerWidth(this.element.outerWidth());
+        }
         // store the hidden JSON from the hidden <div> as a string
+        
         searchData = $('#hiddenJSON').html();
         // array for storing the categories and quiz names and descriptions
         var src = [];
@@ -349,7 +357,17 @@
         
         // assigns the elements of src[] to be the autocomplete suggestions
         $( "#searchBar" ).autocomplete({
-          source: src
+          source: src,
+          select: function (e, ui) {
+            var unsplitText = ui.item.label;
+            var splitText = unsplitText.split(" ");
+            if(splitText[0][0] == "C") {
+              window.location.href = "index.php?sort=" + splitText[2].toLowerCase();
+            } else {
+              selectedQuiz = splitText[0].substring(5,splitText[0].length);
+              window.location.href = "quiz.php?id=" + selectedQuiz;
+            }
+          }
         });
           
       </script>
