@@ -53,8 +53,13 @@ a:focus {
 }
 #quizBuilderLink {
   font-size: 1.5em;
-  padding-top: 0.5em;
+  margin-top: 0.22em;
+  padding: 0.3em;
   font-family: "Arial", Gadget, sans-serif;
+  background-color: #dddddd;
+}
+#quizBuilderLink:hover {
+  background-color: #cccccc;
 }
 #footerBar {
   background-color: #dddddd;
@@ -81,7 +86,7 @@ a:focus {
   width: 26em;
   padding: 0.6em;
   margin-top: 0.375em;
-  margin-left: 4em;
+  margin-left: 2.5em;
   margin-bottom: 0em;
   font-size: 1em;
   display: inline-block;
