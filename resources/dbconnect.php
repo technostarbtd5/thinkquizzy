@@ -36,7 +36,15 @@
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Places", "places", "How well do you know your planet?")';
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("People", "people", "Stars aren\'t just in the sky.")';
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Personality", "personality", "Learn more about yourself!")';
-
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Pandemic", "pandemic", "Stay home and stay healthy")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Pets", "pets", "The friend zone")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("History", "history", "Bound to repeat itself")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Movies", "movies", "Netflix and quiz")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Books", "books", "A thousand words is worth a picture")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Music", "music", "Turn up the volume!")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Math", "math", "Something doesn\'t add up here...")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Science", "science", "Any sufficiently advanced technology is indistinguishable from magic")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Language", "language", "Lorem Ipsum")';
       // Test correctness quiz
       $initDummyQuizzes[] = 'INSERT INTO questions (quizid, questiontext, image) VALUES (3, "First, the northeast. What\'s the state on the left of this pair?", "states1.png")';
       $initDummyQuizzes[] = 'INSERT INTO questions (quizid, questiontext, image) VALUES (3, "Now we head to Appalachia. Which state is this?", "states2.png")';

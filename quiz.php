@@ -17,11 +17,14 @@
   // Get the data we need from the SQL database
   $_QuizId = htmlspecialchars($_GET["id"]);
 
-  $sql = "SELECT * FROM quizzes WHERE id = " . $_QuizId;
+  $sql = "SELECT * FROM quizzes WHERE id = " . mysqli_real_escape_string($conn, $_GET["id"]);
   $_Quiz = mysqli_query($conn, $sql);
   $_QuizArray = mysqli_fetch_assoc($_Quiz);
 
-  $sql = "SELECT * FROM questions WHERE quizid = " .mysqli_real_escape_string($conn, $_QuizId);
+  $sql = "UPDATE quizzes SET views = views + 1 WHERE id = ". mysqli_real_escape_string($conn, $_GET["id"]);
+  mysqli_query($conn, $sql);
+
+  $sql = "SELECT * FROM questions WHERE quizid = " .mysqli_real_escape_string($conn, $_GET["id"]);
   $_Questions = mysqli_query($conn, $sql);
     if (isset($_Questions) == FALSE) {
   	echo '$_Questions null';
