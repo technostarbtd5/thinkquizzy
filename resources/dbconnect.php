@@ -32,9 +32,9 @@
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (2, 2)';
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (2, 3)';
       $initDummyQuizzes[] = ' INSERT INTO quiz_categories VALUES (3, 2)';
-      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Food", "food", "Bite-size quizzes about your favorite dishes to please your taste buds")';
-      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Places", "places", "How well do you know your planet?")';
-      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("People", "people", "Stars aren\'t just in the sky.")';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description, num_quizzes_with_category) VALUES ("Food", "food", "Bite-size quizzes about your favorite dishes to please your taste buds", 1)';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description, num_quizzes_with_category) VALUES ("Places", "places", "How well do you know your planet?", 2)';
+      $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description, num_quizzes_with_category) VALUES ("People", "people", "Stars aren\'t just in the sky.", 1)';
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Personality", "personality", "Learn more about yourself!")';
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Pandemic", "pandemic", "Stay home and stay healthy")';
       $initDummyQuizzes[] = ' INSERT INTO categories (name, identifying_name, description) VALUES ("Pets", "pets", "The friend zone")';
