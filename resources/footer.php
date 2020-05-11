@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="center footerText" id="aboutText" hidden>
-        Quiz site project for ITWS 1100 Group 8.
+        Quiz site team project. Created Spring 2020.
       </div>
       <div class="center footerText" id="contactText" hidden>
         Ha, you really thought we'd give away our emails here? You know who we are.
